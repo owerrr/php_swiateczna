@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,10 +16,9 @@
     
     <div id="nav">
         <ul>
-            <li>Strona główna</li>
-            <li>Lista</li>
-            <li>Dodaj użytkownika</li>
-            <li>Dodaj prezent</li>
+            <a href="index.php"><li>Lista</li></a>
+            <a href="add.php?type=person"><li>Dodaj użytkownika</li></a>
+            <a href="add.php?type=gift"><li>Dodaj prezent</li></a>
         </ul>
     </div>
     
@@ -35,12 +34,12 @@
                 echo "<a href='index.php?list=' class='h1href'><h1><i class='fas fa-exchange-alt'></i> lista użytkowników</h1></a><br/>";
             
                 $persons = new Person();
-                $persons::write($persons->getData());
+                $persons->write($persons->getData());
             }else{
                 echo "<a href='index.php?list=persons' class='h1href'><h1><i class='fas fa-exchange-alt'></i> lista prezentów</h1></a><br/>";
             
                 $gifts = new Gift();
-                $gifts::write($gifts->getData());
+                $gifts->write($gifts->getData());
             }
         ?>
     </div>

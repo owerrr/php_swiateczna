@@ -12,7 +12,7 @@ Class Gift extends ConnectSql implements tohtml{
     protected array $data;
     protected string $query;
     
-    public function getData(int $id = null){
+    public function getData(int $id = null):array{
         $sqlquery = "SELECT ";
             foreach($this->tablefields as $x){
                 if($x == "Giver_Id,"){
@@ -34,6 +34,16 @@ Class Gift extends ConnectSql implements tohtml{
 
         return $this->data;
     }
+
+    public function delete(int $id = null):void{
+        if($id != null){
+            $sqlquery = "DELETE FROM $this->tablename WHERE $this->tablename.Id = $id";
+            $this->query($sqlquery);
+        }else{
+            
+        }
+    }
+
 
     public function write(array $data):void{
         $lp = 0;
@@ -62,7 +72,7 @@ Class Gift extends ConnectSql implements tohtml{
                     <td>$x[5]</td>
                     <td>
                         <a href="confirm.php?type=gdelete&id=$x[0]" class="btn btn-delete">Usuń</a>
-                        <a href="confirm.php?type=gedit&id=$x[0]" class="btn btn-edit">Edytuj</a>
+                        <a href="edit.php?type=gedit&id=$x[0]" class="btn btn-edit">Edytuj</a>
                     </td>
                 </tr>
             TEXT;

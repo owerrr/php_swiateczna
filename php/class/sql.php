@@ -10,6 +10,10 @@ class ConnectSql
         $this->connection = mysqli_connect($hostname,$username,$password,$database);
     }
 
+    public function __destruct(){
+        $this->connection->close();
+    }
+
     public function querySelect(string $query):array{
         $data = [];
             $q = mysqli_query($this->connection, $query);
@@ -21,7 +25,7 @@ class ConnectSql
         return $data;
     }
 
-    public function queryAdd(string $query):void{
+    public function query(string $query):void{
         mysqli_query($this->connection, $query);
     }
 }

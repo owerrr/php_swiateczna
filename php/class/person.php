@@ -11,7 +11,7 @@ Class Person extends ConnectSql implements tohtml2{
     protected array $data;
     protected string $query;
     
-    public function getData(int $id = null){
+    public function getData(int $id = null):array{
         $sqlquery = "SELECT ";
             foreach($this->tablefields as $x){
                 $sqlquery .= $this->tablename.".".$x." ";
@@ -23,6 +23,15 @@ Class Person extends ConnectSql implements tohtml2{
         $this->data = $this->querySelect($sqlquery);
 //echo $sqlquery;
         return $this->data;
+    }
+
+    public function delete(int $id = null):void{
+        if($id != null){
+            $sqlquery = "DELETE FROM $this->tablename WHERE $this->tablename.Id = $id";
+            $this->query($sqlquery);
+        }else{
+            
+        }
     }
 
     public function write(array $data):void{
@@ -50,7 +59,7 @@ Class Person extends ConnectSql implements tohtml2{
                     <td>$x[4]</td>
                     <td>
                         <a href="confirm.php?type=pdelete&id=$x[0]" class="btn btn-delete">Usuń</a>
-                        <a href="confirm.php?type=pedit&id=$x[0]" class="btn btn-edit">Edytuj</a>
+                        <a href="edit.php?type=pedit&id=$x[0]" class="btn btn-edit">Edytuj</a>
                     </td>
                 </tr>
             TEXT;
