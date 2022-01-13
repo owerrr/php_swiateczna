@@ -11,7 +11,7 @@ Class Person extends ConnectSql implements tohtml2{
     protected array $data;
     protected string $query;
     
-    public function getData(int $id = null):array{
+    public function getData(int $id = null){
         $sqlquery = "SELECT ";
             foreach($this->tablefields as $x){
                 $sqlquery .= $this->tablename.".".$x." ";
@@ -27,10 +27,38 @@ Class Person extends ConnectSql implements tohtml2{
 
     public function delete(int $id = null):void{
         if($id != null){
+            //echo $id;
             $sqlquery = "DELETE FROM $this->tablename WHERE $this->tablename.Id = $id";
+            //echo $sqlquery;
+            $r = $this->query($sqlquery);
+            header("Location: ../index.php");
+        }else{
+            header("Location: ../error.php?id=502");
+        }
+    }
+
+    public function add(?string $fn, ?string $ln, ?string $pc, ?string $dob):void{
+        if($fn != null && $ln != null && $pc != null && $dob != null){
+            $sqlquery = "INSERT INTO $this->tablename (FirstName, LastName, PostalCode, DateOfBirth) VALUES ('$fn', '$ln', '$pc', '$dob')";
             $this->query($sqlquery);
         }else{
-            
+            header("Location: ../error.php?id=201a");
+        }
+    }
+
+    public function edit(?int $id, ?string $fn, ?string $ln, ?string $pc, ?string $dob):void{
+        if($id != null && $fn != null && $ln != null && $pc != null && $dob != null){
+            $sqlquery = "UPDATE $this->tablename SET
+                            FirstName = '$fn',
+                            LastName = '$ln',
+                            PostalCode = '$pc',
+                            DateOfBirth = '$dob'
+                            WHERE persons.Id = $id
+                        ";
+            //echo $sqlquery;
+            $this->query($sqlquery);
+        }else{
+            header("Location: ../error.php?id=201a");
         }
     }
 

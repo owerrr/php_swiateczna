@@ -40,10 +40,35 @@ Class Gift extends ConnectSql implements tohtml{
             $sqlquery = "DELETE FROM $this->tablename WHERE $this->tablename.Id = $id";
             $this->query($sqlquery);
         }else{
-            
+            header("Location: ../error.php?errorid=502");
         }
     }
 
+    public function add(?string $sender, ?string $receiver, ?string $label, ?string $price, ?string $description    ):void{
+        if($sender != null && $receiver != null && $label != null && $price != null && $description != null){
+            $sqlquery = "INSERT INTO $this->tablename (Giver_Id, Receiver_Id, Label, Price, gifts.Description) VALUES ($sender, $receiver, '$label', $price, '$description')";
+            $this->query($sqlquery);
+        }else{
+            header("Location: ../error.php?errorid=201a");
+        }
+    }
+
+    public function edit(?int $id, ?string $sender, ?string $receiver, ?string $label, ?string $price, ?string $description):void{
+        if($id != null && $sender != null && $receiver != null && $label != null && $price != null && $description != null){
+            $sqlquery = "UPDATE $this->tablename SET
+                            Giver_Id = $sender,
+                            Receiver_Id = $receiver,
+                            Label = '$label',
+                            Price = $price,
+                            Description = '$description'
+                            WHERE gifts.Id = $id
+                        ";
+                        //echo $sqlquery;
+            $this->query($sqlquery);
+        }else{
+            header("Location: ../error.php?errorid=201a");
+        }
+    }
 
     public function write(array $data):void{
         $lp = 0;

@@ -13,15 +13,21 @@ if(isset($_POST) && isset($_GET['type'])){
         &&  filter_has_var(INPUT_POST, "description")
         ){
             if(
-                !empty(trim(INPUT_POST['sender']))
-            &&  !empty(trim(INPUT_POST['receiver']))
-            &&  !empty(trim(INPUT_POST['label']) && strlen($_POST['label']) <= 100)
-            &&  !empty(trim(INPUT_POST['price']))
-            &&  !empty(trim(INPUT_POST['description']))
+                !empty(trim($_POST['sender']))
+            &&  !empty(trim($_POST['receiver']))
+            &&  !empty(trim($_POST['label']) && strlen($_POST['label']) <= 100)
+            &&  !empty(trim($_POST['price']))
+            &&  !empty(trim($_POST['description']))
             ){
-                
+                //var_dump($_POST['sender'], $_POST['receiver'], $_POST['label'], $_POST['price'], $_POST['description']);
+                if(!is_numeric(str_replace(",",".",$_POST['price']))){  }
+                $price = str_replace(",",".",$_POST['price']);
+                if($price < 0) {  }
+                    $gft = new Gift();
+                    $gft->add($_POST['sender'], $_POST['receiver'], $_POST['label'], $price, $_POST['description']);
+                return header("Location: ../index.php");
             }else{
-                //return header("Location: ../index.php");
+                return header("Location: ../index.php");
             }
         }
     }else if($_GET['type'] == "padd"){
@@ -32,19 +38,22 @@ if(isset($_POST) && isset($_GET['type'])){
         &&  filter_has_var(INPUT_POST, "dateofbirth")
         ){
             if(
-                !empty(trim(INPUT_POST['firstname']))
-            &&  !empty(trim(INPUT_POST['lastname']))
-            &&  !empty(trim(INPUT_POST['postalcode']) && strlen($_POST['postalcode']) == 5)
-            &&  !empty(trim(INPUT_POST['dateofbirth']))
+                !empty(trim($_POST['firstname'])) && strlen($_POST['firstname']) <= 100
+            &&  !empty(trim($_POST['lastname'])) && strlen($_POST['lastname']) <= 100
+            &&  !empty(trim($_POST['postalcode'])) && strlen($_POST['postalcode']) == 6
+            &&  !empty(trim($_POST['dateofbirth']))
             ){
-                
+              echo $_POST['firstname']." ".$_POST['lastname']." | ".$_POST['postalcode']." ".$_POST['dateofbirth'];
+              $per = new Person();
+              $per->add($_POST['firstname'], $_POST['lastname'], $_POST['postalcode'], $_POST['dateofbirth']);
+              return header("Location: ../index.php");
             }else{
-                //return header("Location: ../index.php");
+                return header("Location: ../index.php");
             }
         }
     }else{
-        //return header("Location: ../index.php");
+        return header("Location: ../index.php");
     }
 }else{
-    //return header("Location: ../index.php");
+    return header("Location: ../index.php");
 }

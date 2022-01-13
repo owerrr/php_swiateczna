@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="owr#6062">
 
-    <title>🎄 - Potwierdź usunięcie</title>
-
+    <title>🎄 - Edytuj</title>
     <link rel="stylesheet" href="public/css/main.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
@@ -39,6 +38,7 @@
                     $persons = $person->getData();
 
                     foreach($data as $x){
+                        //echo $x[1];
                         $html .= <<<TEXT
                         <h1 style="font-size:24px;">Edytuj prezent id $x[0]</h1>
                         <br/>
@@ -48,7 +48,8 @@
                                 <select name="sender" id="sender">
                         TEXT;
                             foreach($persons as $p){
-                                if($p[0] == $x[0]){
+                                $fn = $p[1]." ".$p[2];
+                                if($fn == $x[1]){
                                     $html.= "<option name='$p[0]' value='$p[0]' selected>$p[1] $p[2]</option>";
                                 }else{
                                     $html.= "<option name='$p[0]' value='$p[0]'>$p[1] $p[2]</option>";
@@ -59,10 +60,11 @@
                             </div>
                             <div class="line">
                                 <label for="receiver">Odbiorca</label><br/>
-                                <select name="sender" id="sender">
+                                <select name="receiver" id="receiver">
                         TEXT;
                             foreach($persons as $p){
-                                if($p[0] == $x[0]){
+                                $fn = $p[1]." ".$p[2];
+                                if($fn == $x[2]){
                                     $html.= "<option name='$p[0]' value='$p[0]' selected>$p[1] $p[2]</option>";
                                 }else{
                                     $html.= "<option name='$p[0]' value='$p[0]'>$p[1] $p[2]</option>";
@@ -80,8 +82,8 @@
                                 <input type="text" name="price" id="price" value="$x[4]"/>
                             </div>
                             <div class="line">
-                                <label for="receiver">Odbiorca</label><br/>
-                                <textarea style="resize:no-resize;width:300px;min-height:150px;border:none;">$x[5]</textarea>
+                                <label for="description">Odbiorca</label><br/>
+                                <textarea name = "description" id = "description" style="resize:no-resize;width:300px;min-height:150px;border:none;">$x[5]</textarea>
                             </div>
                             <input type="submit" class="btn btn-confirm" value="Edytuj" style="width:175px;"/>
                             <br/>
@@ -91,31 +93,35 @@
                     }
                 }
                 else if($_GET['type'] == "pedit"){
-                    $person = new Gift();
+                    $person = new Person();
                     $data = $person->getData($_GET['id']);
 
                     foreach($data as $x){
                         $html .= <<<TEXT
-                        <h1 style="font-size:24px;">Edytuj osobe id $x[0]</h1>
-                        <br/>
-                        <form method="post" action="php/edit.php?type=gedit&id=$x[0]">
-                            <div class="line">
-                                <label for="fullname">Imie i nazwisko</label><br/>
-                                <input type="text" name="fullname" id="fullname" value="$x[1] $x[2]"/>
-                            </div>
-                            <div class="line">
-                                <label for="postalcode">Kod pocztowy</label><br/>
-                                <input type="text" name="postalcode" id="postalcode" value="$x[3]"/>
-                            </div>
-                            <div class="line">
-                                <label for="dateofbirth">Data urodzenia</label><br/>
-                                <input type="text" name="dateofbirth" id="dateofbirth" value="$x[4]"/>
-                            </div>
-                            <input type="submit" class="btn btn-confirm" value="Edytuj" style="width:175px;"/>
+                            <h1 style="font-size:24px;">Edytuj osobę z id $x[0]</h1>
                             <br/>
-                            <input type="button" class="btn btn-cancel" value="Powrót" onclick="window.location.href = 'index.php' " style="width:175px;margin:5px;"/>
-                        </form>
-                    TEXT;
+                            <form method="post" action="php/edit.php?type=pedit&id=$x[0]">
+                                <div class="line">
+                                    <label for="firstname">Imie</label><br/>
+                                    <input type="text" name="firstname" id="firstname" value = "$x[1]"/>
+                                </div>
+                                <div class="line">
+                                    <label for="lastname">Nazwisko</label><br/>
+                                    <input type="text" name="lastname" id="lastname" value = "$x[2]"/>
+                                </div>
+                                <div class="line">
+                                    <label for="postalcode">Kod pocztowy</label><br/>
+                                    <input type="text" name="postalcode" id="postalcode" placeholder="12-345" value="$x[3]"/>
+                                </div>
+                                <div class="line">
+                                    <label for="dateofbirth">Data urodzenia</label><br/>
+                                    <input type="date" name="dateofbirth" id="dateofbirth" value="$x[4]"/>
+                                </div>
+                                <input type="submit" class="btn btn-confirm" value="Dodaj" style="width:175px;"/>
+                                <br/>
+                                <input type="button" class="btn btn-cancel" value="Powrót" onclick="window.location.href = 'index.php' " style="width:175px;margin:5px;"/>
+                            </form>
+                        TEXT;
                     }
                 }
                 else{

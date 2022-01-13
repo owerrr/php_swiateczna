@@ -52,7 +52,7 @@
                         </div>
                         <div class="line">
                             <label for="receiver">Odbiorca</label><br/>
-                            <select name="sender" id="sender">
+                            <select name="receiver" id="receiver">
                     TEXT;
                         foreach($data as $x){
                             $html.= "<option name='$x[0]' value='$x[0]'>$x[1] $x[2]</option>";
@@ -69,8 +69,8 @@
                             <input type="text" name="price" id="price"/>
                         </div>
                         <div class="line">
-                            <label for="receiver">Odbiorca</label><br/>
-                            <textarea style="resize:no-resize;width:300px;min-height:150px;border:none;"></textarea>
+                            <label for="description">Opis</label><br/>
+                            <textarea style="resize:no-resize;width:300px;min-height:150px;border:none;" name = "description" id = "description"></textarea>
                         </div>
                         <input type="submit" class="btn btn-confirm" value="Dodaj" style="width:175px;"/>
                         <br/>
@@ -80,30 +80,30 @@
                 }
                 else if($_GET['type'] == "person"){
                     $html .= <<<TEXT
-                    <h1 style="font-size:24px;">Dodaj nową osobę</h1>
-                    <br/>
-                    <form method="post" action="php/add.php?type=padd">
-                        <div class="line">
-                            <label for="firstname">Imie</label><br/>
-                            <input type="text" name="firstname" id="firstname"/>
-                        </div>
-                        <div class="line">
-                            <label for="lastname">Nazwisko</label><br/>
-                            <input type="text" name="lastname" id="lastname"/>
-                        </div>
-                        <div class="line">
-                            <label for="postalcode">Kod pocztowy</label><br/>
-                            <input type="text" name="postalcode" id="postalcode" placeholder="12-345"/>
-                        </div>
-                        <div class="line">
-                            <label for="dateofbirth">Data urodzenia</label><br/>
-                            <input type="date" name="dateofbirth" id="dateofbirth"/>
-                        </div>
-                        <input type="submit" class="btn btn-confirm" value="Dodaj" style="width:175px;"/>
+                        <h1 style="font-size:24px;">Dodaj nową osobę</h1>
                         <br/>
-                        <input type="button" class="btn btn-cancel" value="Powrót" onclick="window.location.href = 'index.php' " style="width:175px;margin:5px;"/>
-                    </form>
-                TEXT;
+                        <form method="post" action="php/add.php?type=padd">
+                            <div class="line">
+                                <label for="firstname">Imie</label><br/>
+                                <input type="text" name="firstname" id="firstname"/>
+                            </div>
+                            <div class="line">
+                                <label for="lastname">Nazwisko</label><br/>
+                                <input type="text" name="lastname" id="lastname"/>
+                            </div>
+                            <div class="line">
+                                <label for="postalcode">Kod pocztowy</label><br/>
+                                <input type="text" name="postalcode" id="postalcode" placeholder="12-345"/>
+                            </div>
+                            <div class="line">
+                                <label for="dateofbirth">Data urodzenia</label><br/>
+                                <input type="date" name="dateofbirth" id="dateofbirth"/>
+                            </div>
+                            <input type="submit" class="btn btn-confirm" value="Dodaj" style="width:175px;"/>
+                            <br/>
+                            <input type="button" class="btn btn-cancel" value="Powrót" onclick="window.location.href = 'index.php' " style="width:175px;margin:5px;"/>
+                        </form>
+                    TEXT;
                 }
                 else{
                     $html .= <<<TEXT

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 10 Sty 2022, 20:14
+-- Czas generowania: 11 Sty 2022, 16:31
 -- Wersja serwera: 10.4.14-MariaDB
 -- Wersja PHP: 7.4.9
 
@@ -47,7 +47,23 @@ INSERT INTO `gifts` (`Id`, `Giver_Id`, `Receiver_Id`, `Label`, `Price`, `Descrip
 (4, 3, 2, 'prezent4', '20.00', 'opis4'),
 (5, 3, 4, 'prezent5', '75.00', 'opis5'),
 (6, 4, 1, 'prezent6', '9.99', 'opis6'),
-(7, 1, 1, 'test', '11.11', 'test');
+(7, 1, 1, 'test', '11.11', 'test'),
+(8, 2, 1, 'test11', '21.37', 'test11');
+
+-- --------------------------------------------------------
+
+--
+-- Zastąpiona struktura widoku `giftsview`
+-- (Zobacz poniżej rzeczywisty widok)
+--
+CREATE TABLE `giftsview` (
+`Id` int(11)
+,`nadawca` varchar(201)
+,`odbiorca` varchar(201)
+,`Label` varchar(100)
+,`Price` decimal(10,2)
+,`Description` longtext
+);
 
 -- --------------------------------------------------------
 
@@ -72,6 +88,15 @@ INSERT INTO `persons` (`Id`, `FirstName`, `LastName`, `PostalCode`, `DateOfBirth
 (2, 'Michał', 'Szpak', '21-354', '01.12.1997'),
 (3, 'Tadeusz', 'Nowak', '32-405', '05.08.1984'),
 (4, 'Kacper', 'Koziol', '23-020', '12.01.1999');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura widoku `giftsview`
+--
+DROP TABLE IF EXISTS `giftsview`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `giftsview`  AS  select `gifts`.`Id` AS `Id`,concat(`p1`.`FirstName`,' ',`p1`.`LastName`) AS `nadawca`,concat(`p2`.`FirstName`,' ',`p2`.`LastName`) AS `odbiorca`,`gifts`.`Label` AS `Label`,`gifts`.`Price` AS `Price`,`gifts`.`Description` AS `Description` from ((`gifts` join `persons` `p1` on(`gifts`.`Giver_Id` = `p1`.`Id`)) join `persons` `p2` on(`gifts`.`Receiver_Id` = `p2`.`Id`)) ;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -99,7 +124,7 @@ ALTER TABLE `persons`
 -- AUTO_INCREMENT dla tabeli `gifts`
 --
 ALTER TABLE `gifts`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `persons`

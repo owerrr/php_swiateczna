@@ -69,7 +69,7 @@
                     }
                 }
                 else if($_GET['type'] == "pdelete"){
-                    $person = new Gift();
+                    $person = new Person();
                     $data = $person->getData($_GET['id']);
 
                     foreach($data as $x){
