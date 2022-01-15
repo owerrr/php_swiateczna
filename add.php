@@ -62,17 +62,17 @@
                         </div>
                         <div class="line">
                             <label for="label">Nazwa</label><br/>
-                            <input type="text" name="label" id="label"/>
+                            <input type="text" name="label" id="label" onchange="validate(this)"/>
                         </div>
                         <div class="line">
                             <label for="price">Cena</label><br/>
-                            <input type="text" name="price" id="price"/>
+                            <input type="number" step="0.01" name="price" id="price" onchange="validate(this)"/>
                         </div>
                         <div class="line">
                             <label for="description">Opis</label><br/>
                             <textarea style="resize:no-resize;width:300px;min-height:150px;border:none;" name = "description" id = "description"></textarea>
                         </div>
-                        <input type="submit" class="btn btn-confirm" value="Dodaj" style="width:175px;"/>
+                        <input type="submit" class="btn btn-confirm" id="submitButton" value="Dodaj" style="width:175px;"/>
                         <br/>
                         <input type="button" class="btn btn-cancel" value="Powrót" onclick="window.location.href = 'index.php' " style="width:175px;margin:5px;"/>
                     </form>
@@ -99,7 +99,7 @@
                                 <label for="dateofbirth">Data urodzenia</label><br/>
                                 <input type="date" name="dateofbirth" id="dateofbirth"/>
                             </div>
-                            <input type="submit" class="btn btn-confirm" value="Dodaj" style="width:175px;"/>
+                            <input type="submit" class="btn btn-confirm" id="submitButton" value="Dodaj" style="width:175px;"/>
                             <br/>
                             <input type="button" class="btn btn-cancel" value="Powrót" onclick="window.location.href = 'index.php' " style="width:175px;margin:5px;"/>
                         </form>
@@ -120,6 +120,7 @@
         ?>
     </div>
 
+    <script src="public/js/jquery-3.6.0.min.js"></script>
     <script src="public/js/script.js"></script>
 </body>
 </html>

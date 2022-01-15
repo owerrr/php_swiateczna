@@ -148,6 +148,7 @@ tr:hover{
 
 .line > input[type="text"],
 .line > input[type="date"],
+.line > input[type="number"],
 .line > select,
 .line > textarea{
     color:rgb(75, 253, 113);
@@ -160,6 +161,7 @@ tr:hover{
 
 .line > input[type="text"]:disabled,
 .line > input[type="date"]:disabled,
+.line > input[type="number"]:disabled,
 .line > select:disabled,
 .line > textarea:disabled{
     color:rgb(253, 75, 75);
